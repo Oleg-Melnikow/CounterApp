@@ -87,7 +87,8 @@
 }
 
 .input:focus {
-    border-width: 3px;
+    border-color: #092901;
+    background: rgba(0,0,0, .2);
 }
 
 input[type='number'] {

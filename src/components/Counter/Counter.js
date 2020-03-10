@@ -1,11 +1,13 @@
 import React from "react";
 import s from "./Counter.module.css"
-import {NavLink} from "react-router-dom";
+import {connect} from "react-redux";
+import Exit from "../Exit/Exit";
 
 const Counter = (props) => {
     return (
         <div className={s.block}>
             <div className={s.counter}>
+                <div>{props.value}</div>
                 <div>
                     <span>Step: {props.step}</span>
                     <input type="number" className={s.input} placeholder={"Enter step"}/>
@@ -22,12 +24,16 @@ const Counter = (props) => {
                 <button className={s.reset}>reset</button>
             </div>
             <div className={s.iconBox}>
-                <NavLink to="/">Exit</NavLink>
+                <Exit name="Exit" href="/"/>
             </div>
         </div>
 
     )
 }
 
+const mapStateToProps = (state) => ({
+    value: state.counter.value
+})
 
-export default Counter;
+
+export default connect(mapStateToProps)(Counter);
