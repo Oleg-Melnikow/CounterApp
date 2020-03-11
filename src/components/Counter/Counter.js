@@ -9,15 +9,15 @@ const Counter = (props) => {
     return (
         <div className={s.block}>
             <div className={s.counter}>
-                <div>{props.value}</div>
+                <div className={s.counterValue}>{props.value}</div>
                 <InputBlock val={props.step} isEditMode={props.isEditModeStep} active={props.activeStepChange}
-                            value={props.valueCounter}
-                            valueChange={props.stepChange} onChangeValue={props.onChangeStep}
-                            isFocus={props.isFocusStep}/>
+                            value={props.valueCounter} valueChange={props.stepChange}
+                            onChangeValue={props.onChangeStep} isFocus={props.isFocusStep}
+                            placeholder="Enter Step" inputName="Step"/>
                 <InputBlock val={props.maxValue} isEditMode={props.isEditModeMaxValue}
                             active={props.activeMaxValueChange} value={props.max}
                             valueChange={props.maxValueChange} onChangeValue={props.onChangeMaxValue}
-                            isFocus={props.isFocusMaxValue}/>
+                            isFocus={props.isFocusMaxValue} placeholder="Enter MaxValue" inputName="MaxValue"/>
             </div>
             <div className={s.iconBox}>
                 <button className={dis} onClick={props.plus} disabled={props.isDisable}>
@@ -35,8 +35,8 @@ const Counter = (props) => {
 }
 
 const InputBlock = (props) => <div> {props.val && props.isEditMode
-    ? <span onClick={props.active}>Step: {props.val}</span>
-    : <input type="number" className={s.input} placeholder={"Enter step"} value={props.value}
+    ? <span onClick={props.active}>{props.inputName}: {props.val}</span>
+    : <input type="number" className={s.input} placeholder={props.placeholder} value={props.value}
              onChange={props.valueChange} onBlur={props.onChangeValue} autoFocus={props.isFocus}/>}
 </div>
 

@@ -22,7 +22,6 @@ export const countReducer = (state = initialState, action) => {
     switch (action.type) {
         case INCREMENT: {
             if ((state.step === null || state.step === 0)) {
-                debugger
                 return {
                     ...state,
                     value: state.value + 1
@@ -37,7 +36,6 @@ export const countReducer = (state = initialState, action) => {
         }
         case DECREMENT: {
             if ((state.step === null || state.step === 0)) {
-                debugger
                 return {
                     ...state,
                     value: state.value - 1
@@ -64,6 +62,7 @@ export const countReducer = (state = initialState, action) => {
             }
         }
         case MAX_VALUE: {
+            debugger
             return {
                 ...state,
                 maxValue: +action.maxValue
@@ -84,7 +83,7 @@ export const countReducer = (state = initialState, action) => {
             }
         }
         case DISABLE: {
-            if ((state.step ? state.value + state.step : state.value + 1) > state.maxValue && state.maxValue !== null) {
+            if ((state.step ? state.value + state.step : state.value + 1) > state.maxValue && (state.maxValue !== null && state.maxValue !== 0)) {
                 return {
                     ...state,
                     isDisable: state.isDisable = true

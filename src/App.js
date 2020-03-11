@@ -6,17 +6,15 @@ import CounterContainer from "./components/Counter/CounterContainer";
 import Timer from "./components/Timer/Timer";
 
 const App = () => {
-  return (
-      <div className="App">
-        <div className="app-wrapper-content">
+    return (
+        <div className="App">
             <Switch>
                 <Route path="/" exact component={StartPage}/>
                 <Route path="/counter" exact component={CounterContainer}/>
                 <Route path="/timer" exact component={Timer}/>
             </Switch>
         </div>
-      </div>
-  )
+    )
 }
 
 export default App;
