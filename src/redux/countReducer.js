@@ -2,13 +2,18 @@ const INCREMENT = "Counter-App/Counter/INCREMENT"
 const DECREMENT = "Counter-App/Counter/DECREMENT"
 const RESET = "Counter-App/Counter/RESET"
 const STEP = "Counter-App/Counter/STEP"
-const ACTIVE = "Counter-App/Counter/ACTIVE"
+const ACTIVE_STEP = "Counter-App/Counter/ACTIVE"
+const MAX_VALUE = "Counter-App/Counter/MAX_VALUE"
+const ACTIVE_MAX_VALUE = "Counter-App/Counter/ACTIVE_MAX_VALUE"
 
 const initialState = {
     value: 0,
     step: null,
-    isEditMode: false,
-    isFocus: false,
+    maxValue: null,
+    isEditModeStep: false,
+    isFocusStep: false,
+    isEditModeMaxValue: false,
+    isFocusMaxValue: false
 }
 
 export const countReducer = (state = initialState, action) => {
@@ -46,7 +51,8 @@ export const countReducer = (state = initialState, action) => {
             return {
                 ...state,
                 value: state.value = 0,
-                step: state.step = null
+                step: state.step = null,
+                maxValue: state.maxValue = null
             }
         }
         case STEP: {
@@ -55,11 +61,24 @@ export const countReducer = (state = initialState, action) => {
                 step: action.step
             }
         }
-        case ACTIVE: {
+        case MAX_VALUE: {
             return {
                 ...state,
-                isEditMode: action.isEditMode,
-                isFocus: action.isFocus
+                maxValue: +action.maxValue
+            }
+        }
+        case ACTIVE_STEP: {
+            return {
+                ...state,
+                isEditModeStep: action.isEditModeStep,
+                isFocusStep: action.isFocusStep
+            }
+        }
+        case ACTIVE_MAX_VALUE: {
+            return {
+                ...state,
+                isEditModeMaxValue: action.isEditModeMaxValue,
+                isFocusMaxValue: action.isFocusMaxValue
             }
         }
         default:
@@ -71,4 +90,6 @@ export const Increment = () => ({type: INCREMENT})
 export const Decrement = () => ({type: DECREMENT})
 export const Reset = () => ({type: RESET})
 export const Step = (step) => ({type: STEP, step})
-export const Active = (isEditMode, isFocus) => ({type: ACTIVE, isEditMode, isFocus})
+export const MaxValue = (maxValue) => ({type: MAX_VALUE, maxValue})
+export const ActiveStep = (isEditModeStep, isFocusStep) => ({type: ACTIVE_STEP, isEditModeStep, isFocusStep})
+export const ActiveMaxValue = (isEditModeMaxValue, isFocusMaxValue) => ({type: ACTIVE_MAX_VALUE, isEditModeMaxValue, isFocusMaxValue})

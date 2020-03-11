@@ -3,20 +3,22 @@ import s from "./Counter.module.css"
 import Exit from "../Exit/Exit";
 
 const Counter = (props) => {
-    debugger
     return (
         <div className={s.block}>
             <div className={s.counter}>
                 <div>{props.value}</div>
                 <div>
-                    {props.step && props.isEditMode
-                    ? <span onClick={props.activeChange}>Step: {props.step}</span>
+                    {props.step && props.isEditModeStep
+                    ? <span onClick={props.activeStepChange}>Step: {props.step}</span>
                     : <input type="number" className={s.input} placeholder={"Enter step"} value={props.valueCounter}
-                        onChange={props.stepChange} onBlur={props.onChangeStep} autoFocus={props.isFocus}/>}
+                        onChange={props.stepChange} onBlur={props.onChangeStep} autoFocus={props.isFocusStep}/>}
                 </div>
                 <div>
-                    <span>Max value: {props.maxValue}</span>
-                    <input type="number" className={s.input} placeholder={"Enter max value"}/>
+                    {props.maxValue && props.isEditModeMaxValue
+                    ? <span onClick={props.activeMaxValueChange}>Max value: {props.maxValue}</span>
+                    : <input type="number" className={s.input} placeholder={"Enter max value"}
+                    onChange={props.maxValueChange} onBlur={props.onChangeMaxValue}
+                           value={props.max} autoFocus={props.isFocusMaxValue}/>}
                 </div>
             </div>
 
