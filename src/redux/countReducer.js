@@ -5,6 +5,7 @@ const STEP = "Counter-App/Counter/STEP"
 const ACTIVE_STEP = "Counter-App/Counter/ACTIVE"
 const MAX_VALUE = "Counter-App/Counter/MAX_VALUE"
 const ACTIVE_MAX_VALUE = "Counter-App/Counter/ACTIVE_MAX_VALUE"
+const DISABLE = "Counter-App/Counter/DISABLE"
 
 const initialState = {
     value: 0,
@@ -13,7 +14,8 @@ const initialState = {
     isEditModeStep: false,
     isFocusStep: false,
     isEditModeMaxValue: false,
-    isFocusMaxValue: false
+    isFocusMaxValue: false,
+    isDisable: false
 }
 
 export const countReducer = (state = initialState, action) => {
@@ -81,6 +83,19 @@ export const countReducer = (state = initialState, action) => {
                 isFocusMaxValue: action.isFocusMaxValue
             }
         }
+        case DISABLE: {
+            if ((state.step ? state.value + state.step : state.value + 1) > state.maxValue && state.maxValue !== null) {
+                return {
+                    ...state,
+                    isDisable: state.isDisable = true
+                }
+            } else if (state.maxValue === null || (state.value + state.step) <= state.maxValue) {
+                return {
+                    ...state,
+                    isDisable: state.isDisable = false
+                }
+            }
+        }
         default:
             return state;
     }
@@ -92,4 +107,9 @@ export const Reset = () => ({type: RESET})
 export const Step = (step) => ({type: STEP, step})
 export const MaxValue = (maxValue) => ({type: MAX_VALUE, maxValue})
 export const ActiveStep = (isEditModeStep, isFocusStep) => ({type: ACTIVE_STEP, isEditModeStep, isFocusStep})
-export const ActiveMaxValue = (isEditModeMaxValue, isFocusMaxValue) => ({type: ACTIVE_MAX_VALUE, isEditModeMaxValue, isFocusMaxValue})
+export const ActiveMaxValue = (isEditModeMaxValue, isFocusMaxValue) => ({
+    type: ACTIVE_MAX_VALUE,
+    isEditModeMaxValue,
+    isFocusMaxValue
+})
+export const Disable = () => ({type: DISABLE})

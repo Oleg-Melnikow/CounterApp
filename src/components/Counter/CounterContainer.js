@@ -1,6 +1,15 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
-import {ActiveMaxValue, ActiveStep, Decrement, Increment, MaxValue, Reset, Step} from "../../redux/countReducer";
+import {
+    ActiveMaxValue,
+    ActiveStep,
+    Decrement,
+    Disable,
+    Increment,
+    MaxValue,
+    Reset,
+    Step
+} from "../../redux/countReducer";
 import Counter from "./Counter";
 
 const CounterContainer = (props) => {
@@ -10,11 +19,13 @@ const CounterContainer = (props) => {
 
     let stepChange = (e) => {
         setValueCounter(e.currentTarget.value)
+        props.Disable()
     }
 
     let onChangeStep = () => {
-        props.Step( +valueCounter)
+        props.Step(+valueCounter)
         props.ActiveStep(true, false)
+        props.Disable()
     }
 
     let activeStepChange = () => props.ActiveStep(false, true)
@@ -24,23 +35,28 @@ const CounterContainer = (props) => {
     }
 
     let onChangeMaxValue = () => {
-        props.MaxValue( +max)
+        props.MaxValue(+max)
         props.ActiveMaxValue(true, false)
+        props.Disable()
     }
 
     let activeMaxValueChange = () => props.ActiveMaxValue(false, true)
 
     let plus = () => {
         props.Increment()
+        props.Disable()
     }
     let minus = () => {
         props.Decrement()
+        props.Disable()
     }
     let reset = () => {
         props.Reset()
         setValueCounter(null)
         setMaxValue(null)
+        props.Disable()
     }
+
     return (
         <Counter {...props} stepChange={stepChange} onChangeStep={onChangeStep}
                  activeStepChange={activeStepChange} plus={plus} minus={minus} reset={reset} valueCounter={valueCounter}
@@ -57,8 +73,14 @@ const mapStateToProps = (state) => ({
     isEditModeStep: state.counter.isEditModeStep,
     isFocusStep: state.counter.isFocusStep,
     isEditModeMaxValue: state.counter.isEditModeMaxValue,
-    isFocusMaxValue: state.counter.isFocusMaxValue
+    isFocusMaxValue: state.counter.isFocusMaxValue,
+    isDisable: state.counter.isDisable,
+
 })
 
 
-export default connect(mapStateToProps, {Increment, Decrement, Reset, Step, ActiveStep, MaxValue, ActiveMaxValue})(CounterContainer);
+export default connect(mapStateToProps,
+    {
+        Increment, Decrement, Reset, Step, ActiveStep,
+        MaxValue, ActiveMaxValue, Disable
+    })(CounterContainer);
