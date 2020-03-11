@@ -2,8 +2,19 @@ import React from "react";
 import s from "./Counter.module.css"
 import {connect} from "react-redux";
 import Exit from "../Exit/Exit";
+import {Decrement, Increment, Reset} from "../../redux/countReducer";
 
 const Counter = (props) => {
+
+    let plus = () => {
+        props.Increment()
+    }
+    let minus = () => {
+        props.Decrement()
+    }
+    let reset = () => {
+        props.Reset()
+    }
     return (
         <div className={s.block}>
             <div className={s.counter}>
@@ -19,9 +30,9 @@ const Counter = (props) => {
             </div>
 
             <div className={s.iconBox}>
-                <button><i className="fas fa-plus"/></button>
-                <button className={""}><i className="fas fa-minus"/></button>
-                <button className={s.reset}>reset</button>
+                <button onClick={plus}><i className="fas fa-plus"/></button>
+                <button onClick={minus} className={""}><i className="fas fa-minus"/></button>
+                <button onClick={reset} className={s.reset}>reset</button>
             </div>
             <div className={s.iconBox}>
                 <Exit name="Exit" href="/"/>
@@ -36,4 +47,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps)(Counter);
+export default connect(mapStateToProps, {Increment, Decrement, Reset})(Counter);
